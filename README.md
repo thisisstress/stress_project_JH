@@ -6,9 +6,10 @@
 
 - 평가 지표: MAE
 - 검증: Train-only 5-Fold 교차검증
-- 최종 모델: ExtraTreesRegressor 3개 Seed 평균
-- Seed별 OOF MAE: 0.18041 / 0.17874 / 0.17842
-- 중복 표본 그룹 검증 MAE: 0.17865
+- 최종 모델: V8 Weighted Quantile Forest
+- Public MAE: **0.1282776667**
+- 반복 CV 평균 MAE: **0.147505**
+- 중복 표본 그룹 검증 MAE: **0.149202**
 
 모델 및 전처리 선택 과정은 [실험 결과](docs/experiments.md)에 정리했습니다.
 
@@ -30,7 +31,7 @@ pip install -r requirements.txt
 python final_submission.py --data-dir /data --output-dir .
 ```
 
-실행이 끝나면 `submission.csv`가 생성됩니다.
+실행이 끝나면 `submit_v8_repeated_cv_quantile_forest.csv`가 생성됩니다.
 
 ## 누수 방지 원칙
 
