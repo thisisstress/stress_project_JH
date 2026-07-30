@@ -1,0 +1,31 @@
+# Competition data and submissions
+data/
+open.zip
+submission/
+submission.csv
+submit.csv
+*.csv
+
+# Trained models
+models/
+*.pkl
+*.joblib
+*.pt
+*.pth
+
+# Python and Jupyter
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Environment and local settings
+.env
+.env.*
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
