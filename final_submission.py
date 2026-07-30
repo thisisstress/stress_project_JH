@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Stress Score Prediction V8 — Repeated-CV Weighted Quantile Forest."""
+"""Stress Score Prediction V1 — Weighted Quantile ExtraTrees."""
 
 from __future__ import annotations
 
@@ -147,7 +147,7 @@ def main() -> None:
     )
     pipeline.fit(train_features, train[TARGET])
     submission[TARGET] = quantile_predict(pipeline, test_features)
-    output = args.output_dir / "submit_v8_repeated_cv_quantile_forest.csv"
+    output = args.output_dir / "submit_v1_weighted_quantile_extratrees.csv"
     submission.to_csv(output, index=False, encoding="utf-8")
     print(f"Saved: {output.resolve()}")
     print(f"Rows: {len(submission):,}")
