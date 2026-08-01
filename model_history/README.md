@@ -8,7 +8,7 @@
 | V1 | Weighted Quantile ExtraTrees (`q=0.51`) | 0.147505 | **0.1282776667** | 현재 채택 |
 | V2 | Weighted Median ExtraTrees (`q=0.50`) | 0.146710 | 0.1284666667 | 미채택 |
 | V3 | OOF Blended Median ExtraTrees | 0.146666 | 확인 전 | 검증 중 |
-| V4 | Conservative Quantile ExtraTrees (`q=0.505`) | 0.147434 | 확인 전 | 검증 중 |
+| V4 | Conservative Quantile ExtraTrees (`q=0.505`) | 0.147434 | 0.1286866667 | 미채택 |
 
 ## 기록 원칙
 
