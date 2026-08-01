@@ -28,6 +28,21 @@ V3가 평균 1위였지만 Audit 신뢰구간이 0을 포함하므로 강한 개
 [`validation/ROBUST_VALIDATION_REPORT.md`](../validation/ROBUST_VALIDATION_REPORT.md)를
 참조합니다.
 
+## V5 후보 실험 — 미승격
+
+V14의 95:5 보조 모델 구조를 독립적으로 재현하기 위해 두 후보군을
+Development에서 확인했습니다.
+
+| 후보 | 최선 구성 | 평균 MAE | V1 대비 | 쌍대 95% CI | 판정 |
+|---|---|---:|---:|---:|---|
+| V5A | 상호작용·Seed 7777 보조 2.5% | 0.148925 | +0.000068 | [+0.000010, +0.000125] | 폐기 |
+| V5B | 동일 피처 3-Seed pooled q50 25% | 0.148844 | -0.000013 | [-0.000116, +0.000083] | 보류 |
+
+두 후보 모두 승격 기준을 통과하지 못해 Audit 및 제출 파일 생성을 생략했습니다.
+상세 내용은
+[`validation/EXPERIMENT_V5_REPORT.md`](../validation/EXPERIMENT_V5_REPORT.md)를
+참조합니다.
+
 ## 기록 원칙
 
 - Test 데이터로 인코더, 결측 대체값 또는 모델을 학습하지 않습니다.
