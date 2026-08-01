@@ -20,6 +20,11 @@ Public MAE 0.1282776667을 기록한 모델입니다.
 V1~V4 재감사 결과는 [검증 보고서](validation/ROBUST_VALIDATION_REPORT.md)에
 정리했습니다.
 
+V14의 예측이나 구조를 기준으로 삼지 않고 독립 개발한 V6 후보는 새로운 Audit2
+Seed 3개에서 V1을 모두 이겼습니다. Public 점수 확인 전까지 루트 최종 모델은
+V1으로 유지하며, V6의 방법과 불확실성은
+[V6 모델 보고서](validation/V6_MODEL_REPORT.md)에 별도로 기록했습니다.
+
 ## 실행 방법
 
 데이터 파일을 `/data`에 배치합니다.

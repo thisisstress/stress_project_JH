@@ -9,6 +9,7 @@
 | V2 | Weighted Median ExtraTrees (`q=0.50`) | 0.146710 | 0.1284666667 | 미채택 |
 | V3 | OOF Blended Median ExtraTrees | 0.146666 | 확인 전 | 검증 중 |
 | V4 | Conservative Quantile ExtraTrees (`q=0.505`) | 0.147434 | 0.1286866667 | 미채택 |
+| V6 | Adaptive Feature-Probability Quantile Forest | 0.148096 | 확인 전 | 제출 후보 |
 
 ## 새 검증 프로토콜 재감사
 
@@ -30,8 +31,8 @@ V3가 평균 1위였지만 Audit 신뢰구간이 0을 포함하므로 강한 개
 
 ## V5 후보 실험 — 미승격
 
-V14의 95:5 보조 모델 구조를 독립적으로 재현하기 위해 두 후보군을
-Development에서 확인했습니다.
+보조 모델 혼합이 도움이 되는지 확인하기 위해 두 후보군을 Development에서
+탐색했습니다. V14의 예측값은 어떤 후보에도 사용하지 않았습니다.
 
 | 후보 | 최선 구성 | 평균 MAE | V1 대비 | 쌍대 95% CI | 판정 |
 |---|---|---:|---:|---:|---|
@@ -42,6 +43,21 @@ Development에서 확인했습니다.
 상세 내용은
 [`validation/EXPERIMENT_V5_REPORT.md`](../validation/EXPERIMENT_V5_REPORT.md)를
 참조합니다.
+
+## V6 독립 모델 — 제출 후보
+
+V6는 V14를 기준으로 삼거나 그 예측값을 사용하지 않고 새로 개발한 모델입니다.
+피처 복제로 ExtraTrees의 무작위 피처 선택 확률을 조절한 뒤, Tree 1,200개의
+예측을 52% 분위수로 집계합니다.
+
+| 구간 | V6 평균 MAE | V1 평균 MAE | V1 대비 | Seed 승률 | 쌍대 95% CI |
+|---|---:|---:|---:|---:|---:|
+| Development | **0.148096** | 0.148857 | -0.000761 | 3/3 | [-0.001445, -0.000109] |
+| 신규 Audit2 | **0.147678** | 0.148398 | -0.000720 | 3/3 | [-0.001432, -0.000017] |
+
+사전에 정한 승격 조건을 통과했지만 Public 점수는 아직 확인 전입니다. 따라서
+저장소 루트의 최종 모델은 Public 확인 전까지 V1으로 유지합니다. 세부 방법은
+[`validation/V6_MODEL_REPORT.md`](../validation/V6_MODEL_REPORT.md)를 참조합니다.
 
 ## 기록 원칙
 
