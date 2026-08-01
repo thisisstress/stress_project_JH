@@ -5,6 +5,7 @@ submission/
 submission.csv
 submit.csv
 *.csv
+!validation/results/*.csv
 
 # Trained models
 models/

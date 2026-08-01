@@ -5,7 +5,7 @@
 ## 검증 결과
 
 - 평가 지표: MAE
-- 검증: Train-only 5-Fold 교차검증
+- 검증: Train-only Stratified Group 5-Fold × Development/Audit Seed
 - 최종 모델: V1 Weighted Quantile ExtraTrees
 - Public MAE: **0.1282776667**
 - 반복 CV 평균 MAE: **0.147505**
@@ -16,6 +16,9 @@ ExtraTrees 1,200개의 예측을 51% 분위수로 집계하여
 Public MAE 0.1282776667을 기록한 모델입니다.
 
 모델 및 전처리 선택 과정은 [실험 결과](docs/experiments.md)에 정리했습니다.
+같은 Fold의 반복 사용으로 생길 수 있는 선택 과적합을 줄이기 위한 새 검증법과
+V1~V4 재감사 결과는 [검증 보고서](validation/ROBUST_VALIDATION_REPORT.md)에
+정리했습니다.
 
 ## 실행 방법
 
