@@ -2,35 +2,30 @@
 
 신체 정보와 생활 패턴을 활용해 `stress_score`를 예측하는 회귀 프로젝트입니다.
 
-## 검증 결과
+## 현재 최고 결과
 
-- 평가 지표: MAE
-- 검증: Train-only Stratified Group 5-Fold × Development/Audit Seed
-- 최종 모델: V1 Weighted Quantile ExtraTrees
-- Public MAE: **0.1282776667**
-- 반복 CV 평균 MAE: **0.147505**
-- 중복 표본 그룹 검증 MAE: **0.149202**
+- 평가 지표: MAE (낮을수록 좋음)
+- 최종 채택 모델: **V7 Pair-Neighbor Quantile Blend**
+- Train-only 신규 Audit3 MAE: **0.146644**
+- Public MAE: **0.1272333333**
+- 리더보드: **2026-08-01 14:43 KST 기준 1위**
 
-누수 없는 행 단위 파생변수와 중요 피처 가중치를 적용한
-ExtraTrees 1,200개의 예측을 51% 분위수로 집계하여
-Public MAE 0.1282776667을 기록한 모델입니다.
+V7은 V6 Adaptive Feature-Probability ExtraTrees 예측 85%와 8개 핵심
+피처의 모든 2차원 조합에서 구한 Train 1-NN 분위수 예측 15%를 혼합합니다.
+혼합 비율과 모든 하이퍼파라미터는 Test가 아닌 Train-only 검증으로 고정했고,
+최종 예측은 타깃 격자에 맞춰 0.01 단위로 반올림합니다.
 
-모델 및 전처리 선택 과정은 [실험 결과](docs/experiments.md)에 정리했습니다.
-같은 Fold의 반복 사용으로 생길 수 있는 선택 과적합을 줄이기 위한 새 검증법과
-V1~V4 재감사 결과는 [검증 보고서](validation/ROBUST_VALIDATION_REPORT.md)에
-정리했습니다.
+## 모델 및 검증 기록
 
-V14의 예측이나 구조를 기준으로 삼지 않고 독립 개발한 V6 후보는 새로운 Audit2
-Seed 3개에서 V1을 모두 이겼습니다. Public 점수 확인 전까지 루트 최종 모델은
-V1으로 유지하며, V6의 방법과 불확실성은
-[V6 모델 보고서](validation/V6_MODEL_REPORT.md)에 별도로 기록했습니다.
+- [V1~V7 전체 모델 이력](model_history/README.md)
+- [V7 상세 검증 보고서](validation/V7_MODEL_REPORT.md)
+- [V7 데이터 품질 보고서](validation/V7_DATA_QUALITY_REPORT.md)
+- [실행 완료 분석 노트북](validation/V7_TRAIN_ONLY_ANALYSIS.ipynb)
+- [검증 프로토콜](validation/VALIDATION_PROTOCOL.md)
 
-ExtraTrees 외 CatBoost·LightGBM·XGBoost·스플라인·KNN·RandomForest와 새
-최근접 이웃 구조를 동일 Fold에서 비교했습니다. 그중 2차원 피처쌍 1-NN만
-V6와 보완적인 오차를 보여 15% 혼합한 V7을 만들었고, 신규 Audit3 Seed
-3개에서 모두 V6를 이겼습니다. 상세 결과는
-[V7 모델 보고서](validation/V7_MODEL_REPORT.md)와
-[실행 완료 분석 노트북](validation/V7_TRAIN_ONLY_ANALYSIS.ipynb)에 있습니다.
+각 버전은 `model_history/v1`부터 `model_history/v7`까지 같은 순서로 정리되어
+있습니다. V5는 승격 기준을 통과하지 못해 최종 제출 코드를 만들지 않았으며,
+폐기 이유와 실험 코드를 기록으로 남겼습니다.
 
 ## 실행 방법
 
@@ -43,21 +38,23 @@ V6와 보완적인 오차를 보여 15% 혼합한 V7을 만들었고, 신규 Aud
   sample_submission.csv
 ```
 
-환경을 설치하고 학습·추론 코드를 실행합니다.
+환경을 설치하고 현재 최고 모델의 학습·추론 코드를 실행합니다.
 
 ```bash
 pip install -r requirements.txt
 python final_submission.py --data-dir /data --output-dir .
 ```
 
-실행이 끝나면 `submit_v1_weighted_quantile_extratrees.csv`가 생성됩니다.
+실행이 끝나면 `submit_v7_pair_neighbor_blend.csv`가 생성됩니다. 제출용 단일
+파일 원본은 `model_history/v7/final_submission_v7.py`에도 동일하게 보존합니다.
 
 ## 누수 방지 원칙
 
 - Test 데이터로 인코더·결측 대체값·스케일러를 학습하지 않습니다.
-- 전처리기는 Train 데이터에서만 `fit`합니다.
+- 전처리기와 경험적 순위 기준은 Train 데이터에서만 학습합니다.
 - 파생변수는 한 행 안의 입력값만 사용합니다.
 - Test 전체 통계, 행 수, 인덱스 또는 순서를 모델링에 사용하지 않습니다.
+- 외부 데이터를 사용하지 않습니다.
 
 ## 저장소 보안
 

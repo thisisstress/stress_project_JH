@@ -1,85 +1,80 @@
-# 모델 버전 기록
+# V1~V7 모델 버전 기록
 
-이 폴더는 JH가 실험한 모델 코드를 버전별로 보존합니다.
-현재 제출 기준 모델은 저장소 루트의 `final_submission.py`입니다.
+JH가 직접 개발·검증한 모델을 버전 순서대로 보존합니다. 현재 저장소 루트의
+`final_submission.py`와 제출 기준 모델은 **V7 Pair-Neighbor Quantile
+Blend**입니다.
 
-| 버전 | 모델 | Train-only 검증 MAE | Public MAE | 상태 |
+모든 `v1`~`v7` 폴더에는 동일한 형식의 `README.md`가 있습니다. 최종 제출
+코드가 만들어진 버전은 `final_submission_vN.py`도 함께 보존하며, 승격 전에
+폐기한 V5는 코드가 없는 이유와 실험 경로를 README에 명시했습니다.
+
+## 한눈에 보기
+
+| 버전 | 모델 | 대표 Train-only MAE | Public MAE | 상태 |
 |---|---|---:|---:|---|
-| V1 | Weighted Quantile ExtraTrees (`q=0.51`) | 0.147505 | **0.1282776667** | 현재 채택 |
-| V2 | Weighted Median ExtraTrees (`q=0.50`) | 0.146710 | 0.1284666667 | 미채택 |
-| V3 | OOF Blended Median ExtraTrees | 0.146666 | 확인 전 | 검증 중 |
-| V4 | Conservative Quantile ExtraTrees (`q=0.505`) | 0.147434 | 0.1286866667 | 미채택 |
-| V6 | Adaptive Feature-Probability Quantile Forest | 0.148096 | 확인 전 | 제출 후보 |
-| V7 | Pair-Neighbor Quantile Blend | **0.146644 (Audit3)** | 확인 전 | 제출 후보 |
+| [V1](v1/README.md) | Weighted Quantile ExtraTrees (`q=0.51`) | 0.147505 | 0.1282776667 | 이전 기준 |
+| [V2](v2/README.md) | Weighted Median ExtraTrees (`q=0.50`) | 0.146710 | 0.1284666667 | 미채택 |
+| [V3](v3/README.md) | OOF Blended Median ExtraTrees | 0.146666 | 미확인 | 미승격 |
+| [V4](v4/README.md) | Conservative Quantile ExtraTrees (`q=0.505`) | 0.147434 | 0.1286866667 | 미채택 |
+| [V5](v5/README.md) | 보조 모델 혼합 실험 | 0.148844 (최선) | 미확인 | 검증 후 폐기 |
+| [V6](v6/README.md) | Adaptive Feature-Probability Quantile Forest | 0.147678 (Audit2) | 미확인 | V7 주 모델 |
+| [V7](v7/README.md) | Pair-Neighbor Quantile Blend | **0.146644 (Audit3)** | **0.1272333333** | **현재 최고·채택** |
 
-## 새 검증 프로토콜 재감사
+> 검증 구간과 Seed가 다른 MAE의 절대값을 단순 비교하지 않습니다. 후보 승격은
+> 같은 Fold에서 기준 모델과 쌍대 비교하고, 새 Audit Seed에서도 개선되는지를
+> 함께 확인했습니다.
 
-기존 Seed를 반복해서 본 영향을 분리하기 위해 입력 중복 그룹을 보존한
-Stratified Group 5-Fold와 신규 Audit Seed 3개로 V1~V4를 같은 Fold에서
-비교했습니다.
+## 버전 흐름
 
-| 버전 | Audit 평균 MAE | V1 대비 차이 | Audit Seed 승률 | 쌍대 95% CI | 판정 |
-|---|---:|---:|---:|---:|---|
-| V3 | **0.148880** | -0.000476 | 100% | [-0.001031, +0.000079] | 유망·승격 보류 |
-| V2 | 0.148920 | -0.000435 | 100% | [-0.001061, +0.000197] | 승격 보류 |
-| V4 | 0.149289 | -0.000066 | 66.7% | [-0.000237, +0.000096] | 승격 보류 |
-| V1 | 0.149355 | 기준 | 기준 | [0, 0] | 현재 기준 모델 |
+### V1 — 첫 기준 모델
 
-V3가 평균 1위였지만 Audit 신뢰구간이 0을 포함하므로 강한 개선으로 단정하지
-않습니다. 상세 방법과 결과는
-[`validation/ROBUST_VALIDATION_REPORT.md`](../validation/ROBUST_VALIDATION_REPORT.md)를
-참조합니다.
+행 단위 파생변수와 중요 피처 복제를 적용한 ExtraTrees 1,200개의 개별 Tree
+예측을 51% 분위수로 집계했습니다. Public MAE 0.1282776667을 기록해 V7 이전
+기준 모델로 사용했습니다.
 
-## V5 후보 실험 — 미승격
+### V2 — 중앙값 집계
 
-보조 모델 혼합이 도움이 되는지 확인하기 위해 두 후보군을 Development에서
-탐색했습니다. V14의 예측값은 어떤 후보에도 사용하지 않았습니다.
+V1의 51% 분위수를 50% 중앙값으로 바꿨습니다. Train-only MAE는 좋아졌지만
+Public MAE 0.1284666667로 V1보다 나빠 미채택했습니다.
 
-| 후보 | 최선 구성 | 평균 MAE | V1 대비 | 쌍대 95% CI | 판정 |
-|---|---|---:|---:|---:|---|
-| V5A | 상호작용·Seed 7777 보조 2.5% | 0.148925 | +0.000068 | [+0.000010, +0.000125] | 폐기 |
-| V5B | 동일 피처 3-Seed pooled q50 25% | 0.148844 | -0.000013 | [-0.000116, +0.000083] | 보류 |
+### V3 — OOF 혼합
 
-두 후보 모두 승격 기준을 통과하지 못해 Audit 및 제출 파일 생성을 생략했습니다.
-상세 내용은
-[`validation/EXPERIMENT_V5_REPORT.md`](../validation/EXPERIMENT_V5_REPORT.md)를
-참조합니다.
+Train OOF에서 선택한 두 ExtraTrees 구성을 혼합했습니다. 신규 Audit 평균은
+V1보다 0.000476 낮았지만 쌍대 95% 신뢰구간이 0을 포함해 승격하지 않았습니다.
+상세 비교는 [V1~V4 재감사 보고서](../validation/ROBUST_VALIDATION_REPORT.md)에
+있습니다.
 
-## V6 독립 모델 — 제출 후보
+### V4 — 보수적 분위수
 
-V6는 V14를 기준으로 삼거나 그 예측값을 사용하지 않고 새로 개발한 모델입니다.
-피처 복제로 ExtraTrees의 무작위 피처 선택 확률을 조절한 뒤, Tree 1,200개의
-예측을 52% 분위수로 집계합니다.
+V1 구조를 유지하고 분위수만 50.5%로 조정했습니다. Public MAE
+0.1286866667로 V1보다 나빠 미채택했습니다.
 
-| 구간 | V6 평균 MAE | V1 평균 MAE | V1 대비 | Seed 승률 | 쌍대 95% CI |
-|---|---:|---:|---:|---:|---:|
-| Development | **0.148096** | 0.148857 | -0.000761 | 3/3 | [-0.001445, -0.000109] |
-| 신규 Audit2 | **0.147678** | 0.148398 | -0.000720 | 3/3 | [-0.001432, -0.000017] |
+### V5 — 보조 혼합 실험·폐기
 
-사전에 정한 승격 조건을 통과했지만 Public 점수는 아직 확인 전입니다. 따라서
-저장소 루트의 최종 모델은 Public 확인 전까지 V1으로 유지합니다. 세부 방법은
-[`validation/V6_MODEL_REPORT.md`](../validation/V6_MODEL_REPORT.md)를 참조합니다.
+상호작용 보조 모델과 다중 Seed pooled 예측 혼합을 실험했습니다. V5A는
+V1보다 유의하게 나빴고 V5B는 개선 신뢰구간이 0을 포함해, 사전 승격 기준에
+따라 최종 코드와 제출 파일을 만들지 않았습니다. 상세 내용은
+[V5 실험 보고서](../validation/EXPERIMENT_V5_REPORT.md)에 있습니다.
 
-## V7 독립 혼합 모델 — 제출 후보
+### V6 — 피처 선택 확률 최적화
 
-V7은 V6 예측 85%와 새로 개발한 2차원 피처쌍 1-NN 분위수 예측 15%를
-혼합합니다. CatBoost, LightGBM, XGBoost, 스플라인, KNN, RandomForest도
-같은 Train-only Fold에서 비교했지만 V6보다 나빴고, 피처쌍 이웃 모델만 보조
-예측으로 개선을 보였습니다.
+피처별 복제 수로 ExtraTrees의 무작위 피처 선택 확률을 조절하고 Tree 1,200개
+예측의 52% 분위수를 0.01 단위로 반올림했습니다. 신규 Audit2 Seed 3개에서
+V1을 모두 이겨 독립 후보로 승격했고, 이후 V7의 85% 주 모델이 됐습니다.
+상세 내용은 [V6 보고서](../validation/V6_MODEL_REPORT.md)에 있습니다.
 
-| 검증 구간 | V6 MAE | V7 MAE | V6 대비 | Seed 승률 |
-|---|---:|---:|---:|---:|
-| Development Seed 42 | 0.151283 | **0.150560** | -0.000723 | 1/1 |
-| 확인 Seed 2026·3407 | 0.146502 | **0.146205** | -0.000297 | 2/2 |
-| 신규 Audit3 | 0.147019 | **0.146644** | -0.000374 | 3/3 |
+### V7 — 현재 최고 모델
 
-Audit3 쌍대 95% CI는 `[-0.000791, +0.000044]`로 0을 아주 조금 포함합니다.
-여섯 Seed 모두 개선했지만 Public 성능은 아직 확인 전입니다. 세부 방법은
-[`validation/V7_MODEL_REPORT.md`](../validation/V7_MODEL_REPORT.md)를 참조합니다.
+V6 예측 85%와 8개 핵심 피처의 모든 2차원 조합에서 찾은 Train 1-NN 분위수
+예측 15%를 혼합합니다. 신규 Audit3 Seed 3개에서 모두 V6를 이겼고, Public
+MAE **0.1272333333**으로 2026-08-01 14:43 KST 기준 리더보드 1위를
+기록했습니다. 상세 내용은 [V7 보고서](../validation/V7_MODEL_REPORT.md)와
+[실행 완료 분석 노트북](../validation/V7_TRAIN_ONLY_ANALYSIS.ipynb)에 있습니다.
 
 ## 기록 원칙
 
-- Test 데이터로 인코더, 결측 대체값 또는 모델을 학습하지 않습니다.
-- Test 전체 통계, 행 수, 인덱스와 순서를 모델링에 사용하지 않습니다.
+- Test 데이터로 인코더, 결측 대체값, 경험적 순위 기준 또는 모델을 학습하지 않습니다.
+- Test 전체 통계, 행 수, 인덱스, 순서와 다른 Test 행을 모델링에 사용하지 않습니다.
 - 데이터 원본, 제출 CSV와 학습된 모델 파일은 Git에 올리지 않습니다.
-- Public 점수가 확인되지 않은 후보는 `검증 중`으로 표시합니다.
+- Public 점수는 Train-only에서 설정을 고정한 뒤 최종 확인 결과로만 기록합니다.
+- 실패한 실험도 삭제하지 않고 미채택·폐기 이유를 남깁니다.
