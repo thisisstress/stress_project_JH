@@ -10,6 +10,7 @@
 | V3 | OOF Blended Median ExtraTrees | 0.146666 | 확인 전 | 검증 중 |
 | V4 | Conservative Quantile ExtraTrees (`q=0.505`) | 0.147434 | 0.1286866667 | 미채택 |
 | V6 | Adaptive Feature-Probability Quantile Forest | 0.148096 | 확인 전 | 제출 후보 |
+| V7 | Pair-Neighbor Quantile Blend | **0.146644 (Audit3)** | 확인 전 | 제출 후보 |
 
 ## 새 검증 프로토콜 재감사
 
@@ -58,6 +59,23 @@ V6는 V14를 기준으로 삼거나 그 예측값을 사용하지 않고 새로 
 사전에 정한 승격 조건을 통과했지만 Public 점수는 아직 확인 전입니다. 따라서
 저장소 루트의 최종 모델은 Public 확인 전까지 V1으로 유지합니다. 세부 방법은
 [`validation/V6_MODEL_REPORT.md`](../validation/V6_MODEL_REPORT.md)를 참조합니다.
+
+## V7 독립 혼합 모델 — 제출 후보
+
+V7은 V6 예측 85%와 새로 개발한 2차원 피처쌍 1-NN 분위수 예측 15%를
+혼합합니다. CatBoost, LightGBM, XGBoost, 스플라인, KNN, RandomForest도
+같은 Train-only Fold에서 비교했지만 V6보다 나빴고, 피처쌍 이웃 모델만 보조
+예측으로 개선을 보였습니다.
+
+| 검증 구간 | V6 MAE | V7 MAE | V6 대비 | Seed 승률 |
+|---|---:|---:|---:|---:|
+| Development Seed 42 | 0.151283 | **0.150560** | -0.000723 | 1/1 |
+| 확인 Seed 2026·3407 | 0.146502 | **0.146205** | -0.000297 | 2/2 |
+| 신규 Audit3 | 0.147019 | **0.146644** | -0.000374 | 3/3 |
+
+Audit3 쌍대 95% CI는 `[-0.000791, +0.000044]`로 0을 아주 조금 포함합니다.
+여섯 Seed 모두 개선했지만 Public 성능은 아직 확인 전입니다. 세부 방법은
+[`validation/V7_MODEL_REPORT.md`](../validation/V7_MODEL_REPORT.md)를 참조합니다.
 
 ## 기록 원칙
 

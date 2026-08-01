@@ -1,0 +1,2 @@
+stage,seeds,v6_mean_mae,pair_mean_mae,blend_mean_mae,mean_delta_vs_v6,seed_win_rate,worst_seed_delta,paired_ci95_lower,paired_ci95_upper
+confirm,"2026,3407",0.14650166666666664,0.15148593333333332,0.146205,-0.00029666666666666665,1.0,-0.0001866666666666663,-0.0007214322031545041,0.0001365324112741642

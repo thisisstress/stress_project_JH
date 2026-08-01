@@ -25,6 +25,13 @@ Seed 3개에서 V1을 모두 이겼습니다. Public 점수 확인 전까지 루
 V1으로 유지하며, V6의 방법과 불확실성은
 [V6 모델 보고서](validation/V6_MODEL_REPORT.md)에 별도로 기록했습니다.
 
+ExtraTrees 외 CatBoost·LightGBM·XGBoost·스플라인·KNN·RandomForest와 새
+최근접 이웃 구조를 동일 Fold에서 비교했습니다. 그중 2차원 피처쌍 1-NN만
+V6와 보완적인 오차를 보여 15% 혼합한 V7을 만들었고, 신규 Audit3 Seed
+3개에서 모두 V6를 이겼습니다. 상세 결과는
+[V7 모델 보고서](validation/V7_MODEL_REPORT.md)와
+[실행 완료 분석 노트북](validation/V7_TRAIN_ONLY_ANALYSIS.ipynb)에 있습니다.
+
 ## 실행 방법
 
 데이터 파일을 `/data`에 배치합니다.
