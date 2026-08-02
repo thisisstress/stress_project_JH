@@ -8,19 +8,20 @@
 - 최종 채택 모델: **V7 Pair-Neighbor Quantile Blend**
 - Train-only 신규 Audit3 MAE: **0.146644**
 - Public MAE: **0.1272333333**
-- 리더보드: **2026-08-01 14:43 KST 기준 1위**
+- 리더보드: **2026-08-01 14:43 KST 제출 당시 1위**
 
 V7은 V6 Adaptive Feature-Probability ExtraTrees 예측 85%와 8개 핵심
 피처의 모든 2차원 조합에서 구한 Train 1-NN 분위수 예측 15%를 혼합합니다.
 혼합 비율과 모든 하이퍼파라미터는 Test가 아닌 Train-only 검증으로 고정했고,
 최종 예측은 타깃 격자에 맞춰 0.01 단위로 반올림합니다.
 
-## V8 제출 후보
+## V8 제출 결과
 
 V8 Robust Subspace-Neighbor Blend는 가중치 고정 뒤 신규 Audit Seed 3개에서
-V7을 3/3으로 이겼습니다(Audit 평균 0.150044, V7 0.150134). 다만 개선 폭이
-작고 Public 점수는 아직 확인하지 않았으므로, 현재 최고 기록과 루트 기본
-실행 코드는 V7으로 유지합니다.
+V7을 3/3으로 이겼습니다(Audit 평균 0.150044, V7 0.150134). 그러나 Public
+MAE는 **0.1274733333**으로 V7의 0.1272333333보다 **0.0002400000 악화**됐습니다.
+따라서 V8은 미채택 실험으로 보존하고, 현재 최고 기록과 루트 기본 실행 코드는
+V7으로 유지합니다.
 
 - [V8 상세 검증 보고서](validation/V8_MODEL_REPORT.md)
 - [V8 최종 실행 코드](model_history/v8/final_submission_v8.py)
