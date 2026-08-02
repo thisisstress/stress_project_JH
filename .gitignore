@@ -6,6 +6,7 @@ submission.csv
 submit.csv
 *.csv
 !validation/results/*.csv
+validation/results/v8_robust_multiseed_weight_search.csv
 
 # Trained models
 models/
@@ -20,6 +21,7 @@ __pycache__/
 .ipynb_checkpoints/
 .venv/
 venv/
+validation/cache_v8/
 
 # Environment and local settings
 .env

@@ -15,9 +15,19 @@ V7은 V6 Adaptive Feature-Probability ExtraTrees 예측 85%와 8개 핵심
 혼합 비율과 모든 하이퍼파라미터는 Test가 아닌 Train-only 검증으로 고정했고,
 최종 예측은 타깃 격자에 맞춰 0.01 단위로 반올림합니다.
 
+## V8 제출 후보
+
+V8 Robust Subspace-Neighbor Blend는 가중치 고정 뒤 신규 Audit Seed 3개에서
+V7을 3/3으로 이겼습니다(Audit 평균 0.150044, V7 0.150134). 다만 개선 폭이
+작고 Public 점수는 아직 확인하지 않았으므로, 현재 최고 기록과 루트 기본
+실행 코드는 V7으로 유지합니다.
+
+- [V8 상세 검증 보고서](validation/V8_MODEL_REPORT.md)
+- [V8 최종 실행 코드](model_history/v8/final_submission_v8.py)
+
 ## 모델 및 검증 기록
 
-- [V1~V7 전체 모델 이력](model_history/README.md)
+- [V1~V8 전체 모델 이력](model_history/README.md)
 - [V7 상세 검증 보고서](validation/V7_MODEL_REPORT.md)
 - [V7 데이터 품질 보고서](validation/V7_DATA_QUALITY_REPORT.md)
 - [실행 완료 분석 노트북](validation/V7_TRAIN_ONLY_ANALYSIS.ipynb)

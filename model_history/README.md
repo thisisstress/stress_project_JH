@@ -1,10 +1,10 @@
-# V1~V7 모델 버전 기록
+# V1~V8 모델 버전 기록
 
 JH가 직접 개발·검증한 모델을 버전 순서대로 보존합니다. 현재 저장소 루트의
 `final_submission.py`와 제출 기준 모델은 **V7 Pair-Neighbor Quantile
 Blend**입니다.
 
-모든 `v1`~`v7` 폴더에는 동일한 형식의 `README.md`가 있습니다. 최종 제출
+모든 `v1`~`v8` 폴더에는 동일한 형식의 `README.md`가 있습니다. 최종 제출
 코드가 만들어진 버전은 `final_submission_vN.py`도 함께 보존하며, 승격 전에
 폐기한 V5는 코드가 없는 이유와 실험 경로를 README에 명시했습니다.
 
@@ -19,6 +19,7 @@ Blend**입니다.
 | [V5](v5/README.md) | 보조 모델 혼합 실험 | 0.148844 (최선) | 미확인 | 검증 후 폐기 |
 | [V6](v6/README.md) | Adaptive Feature-Probability Quantile Forest | 0.147678 (Audit2) | 미확인 | V7 주 모델 |
 | [V7](v7/README.md) | Pair-Neighbor Quantile Blend | **0.146644 (Audit3)** | **0.1272333333** | **현재 최고·채택** |
+| [V8](v8/README.md) | Robust Subspace-Neighbor Blend | **0.150044 (신규 Audit3)** | 제출 대기 | 검증 통과 후보 |
 
 > 검증 구간과 Seed가 다른 MAE의 절대값을 단순 비교하지 않습니다. 후보 승격은
 > 같은 Fold에서 기준 모델과 쌍대 비교하고, 새 Audit Seed에서도 개선되는지를
@@ -70,6 +71,14 @@ V6 예측 85%와 8개 핵심 피처의 모든 2차원 조합에서 찾은 Train 
 MAE **0.1272333333**으로 2026-08-01 14:43 KST 기준 리더보드 1위를
 기록했습니다. 상세 내용은 [V7 보고서](../validation/V7_MODEL_REPORT.md)와
 [실행 완료 분석 노트북](../validation/V7_TRAIN_ONLY_ANALYSIS.ipynb)에 있습니다.
+
+### V8 — 검증 통과 제출 후보
+
+V7 82.5%에 3차원·4차원 최근접 이웃과 2~4차원 이웃 풀 분위수 17.5%를
+혼합합니다. 가중치 고정 후 새 Audit Seed 3개에서 모두 V7을 이겼지만 평균
+개선 폭은 0.000090으로 작습니다. Public 결과 확인 전까지 루트 기본 모델은
+V7으로 유지합니다. 상세 내용은 [V8 보고서](../validation/V8_MODEL_REPORT.md)에
+있습니다.
 
 ## 기록 원칙
 

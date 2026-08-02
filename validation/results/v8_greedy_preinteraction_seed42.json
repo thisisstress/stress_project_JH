@@ -1,0 +1,31 @@
+{
+  "v7_mae": 0.15068333333333336,
+  "ensemble_mae": 0.14992,
+  "delta_vs_v7": -0.0007633333333333658,
+  "recipe": [
+    {
+      "candidate": "blend_v7::v8_seed42_features::aux__triple_closest30_q50::w0.200",
+      "weight": 1.0
+    },
+    {
+      "candidate": "v8_extra_regressor_criteria_seed42::prediction__v7__squared_mf4_q56__w0.20",
+      "weight": 0.25
+    },
+    {
+      "candidate": "blend_v7::v8_subspace_neighbor_seed42::aux__pool2to4_q50::w0.150",
+      "weight": 0.2
+    },
+    {
+      "candidate": "blend_v7::v8_subspace_neighbor_seed42::aux__dim4_q50::w0.100",
+      "weight": 0.15
+    },
+    {
+      "candidate": "blend_v7::v8_subspace_neighbor_seed42::aux__pool2to4_q48::w0.250",
+      "weight": 0.2
+    },
+    {
+      "candidate": "blend_v7::v8_seed42_features::aux__triple_closest20_q50::w0.200",
+      "weight": 0.1
+    }
+  ]
+}
