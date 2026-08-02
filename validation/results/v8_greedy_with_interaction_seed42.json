@@ -1,0 +1,31 @@
+{
+  "v7_mae": 0.15068333333333336,
+  "ensemble_mae": 0.14973,
+  "delta_vs_v7": -0.0009533333333333616,
+  "recipe": [
+    {
+      "candidate": "blend_v7::v8_seed42_features::aux__triple_closest30_q50::w0.200",
+      "weight": 1.0
+    },
+    {
+      "candidate": "blend_v7::v8_interaction_forest_seed42::interaction__int100_c1_mf4_q56::w0.500",
+      "weight": 0.5
+    },
+    {
+      "candidate": "blend_v7::v8_seed42_features::aux__pair_triple_pool_q52::w0.400",
+      "weight": 0.3
+    },
+    {
+      "candidate": "blend_v7::v8_interaction_forest_seed42::interaction__int100_c1_mf4_q56::w0.400",
+      "weight": 0.1
+    },
+    {
+      "candidate": "confidence::triple_std_gate",
+      "weight": 0.15
+    },
+    {
+      "candidate": "blend_v7::v8_interaction_forest_seed42::interaction__int100_c1_mf4_q56::w0.250",
+      "weight": 0.15
+    }
+  ]
+}
