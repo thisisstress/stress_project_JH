@@ -1,0 +1,21 @@
+{
+  "rows": 3000,
+  "input_columns": 16,
+  "target_unique_values": 101,
+  "duplicate_affected_rows": 12,
+  "duplicate_groups": 6,
+  "duplicate_groups_with_conflicting_target": 0,
+  "missing_cells": 4414,
+  "development_seeds": [
+    42,
+    2026,
+    3407
+  ],
+  "audit_seeds": [
+    104729,
+    130363,
+    155921
+  ],
+  "audit_seed_status": "first_consumed_on_2026-08-01",
+  "splitter": "StratifiedGroupKFold(5, target quantile bins=10, exact-input duplicate groups)"
+}
