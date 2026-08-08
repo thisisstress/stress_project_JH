@@ -7,7 +7,7 @@
 <p>
   <img src="https://img.shields.io/badge/Task-Tabular%20Regression-2563EB?style=flat-square" alt="Task">
   <img src="https://img.shields.io/badge/Metric-MAE-7C3AED?style=flat-square" alt="Metric">
-  <img src="https://img.shields.io/badge/Model-V7%20Pair--Neighbor-EA580C?style=flat-square" alt="Model">
+  <img src="https://img.shields.io/badge/Research%20Line-V7%20Pair--Neighbor-EA580C?style=flat-square" alt="Research Line">
   <img src="https://img.shields.io/badge/Public-0.1272333333-059669?style=flat-square" alt="Public MAE">
 </p>
 
@@ -15,13 +15,16 @@
 
 ---
 
-## 🏆 현재 최고 결과
+## 🏅 이 저장소의 대표 연구 결과
 
 - 평가 지표: MAE (낮을수록 좋음)
-- 최종 채택 모델: **V7 Pair-Neighbor Quantile Blend**
+- 저장소 대표 모델: **V7 Pair-Neighbor Quantile Blend**
 - Train-only 신규 Audit3 MAE: **0.146644**
 - Public MAE: **0.1272333333**
-- 리더보드: **2026-08-01 14:43 KST 제출 당시 1위**
+- 당시 기록: **2026-08-01 14:43 KST 제출 시점 공개 리더보드 1위**
+
+> 이 README는 `stress_project_JH`에 보존된 **연구 계보와 검증 기록**을 설명합니다.  
+> 여기의 대표 모델 표기는 개인별 성과 순위나 팀 전체 최종 채택 모델을 의미하지 않으며, 팀의 최종 통합 결과와 공통 계보는 별도 팀 문서에서 함께 정리합니다.
 
 V7은 V6 Adaptive Feature-Probability ExtraTrees 예측 85%와 8개 핵심
 피처의 모든 2차원 조합에서 구한 Train 1-NN 분위수 예측 15%를 혼합합니다.
@@ -43,12 +46,12 @@ flowchart LR
 
 ---
 
-## 🧪 V8 제출 결과
+## 🧪 V8 후속 실험 결과
 
 V8 Robust Subspace-Neighbor Blend는 가중치 고정 뒤 신규 Audit Seed 3개에서
 V7을 3/3으로 이겼습니다(Audit 평균 0.150044, V7 0.150134). 그러나 Public
 MAE는 **0.1274733333**으로 V7의 0.1272333333보다 **0.0002400000 악화**됐습니다.
-따라서 V8은 미채택 실험으로 보존하고, 현재 최고 기록과 루트 기본 실행 코드는
+따라서 V8은 후속 미채택 실험으로 보존하고, 이 저장소의 대표 실행 코드는
 V7으로 유지합니다.
 
 - [V8 상세 검증 보고서](validation/V8_MODEL_REPORT.md)
@@ -81,7 +84,7 @@ V7으로 유지합니다.
   sample_submission.csv
 ```
 
-환경을 설치하고 현재 최고 모델의 학습·추론 코드를 실행합니다.
+환경을 설치하고 이 저장소의 대표 모델 학습·추론 코드를 실행합니다.
 
 ```bash
 pip install -r requirements.txt
