@@ -1,81 +1,63 @@
 <div align="center">
 
-# 🧠 Stress Score Prediction
+# 🧠 Stress Score Prediction — V7 Research
 
-### 신체 정보와 생활 패턴을 활용한 스트레스 점수 회귀 프로젝트
+### Pair-Neighbor Quantile Blend
 
 <p>
   <img src="https://img.shields.io/badge/Task-Tabular%20Regression-2563EB?style=flat-square" alt="Task">
   <img src="https://img.shields.io/badge/Metric-MAE-7C3AED?style=flat-square" alt="Metric">
-  <img src="https://img.shields.io/badge/Research%20Line-V7%20Pair--Neighbor-EA580C?style=flat-square" alt="Research Line">
   <img src="https://img.shields.io/badge/Public-0.1272333333-059669?style=flat-square" alt="Public MAE">
 </p>
 
+이 저장소는 V1~V8 모델 이력과 V7 Pair-Neighbor 모델의 재현 코드·검증 기록을 보존합니다.
+
 </div>
 
----
+## V7 결과
 
-## 🏅 이 저장소의 대표 연구 결과
+| 항목 | 결과 |
+|---|---:|
+| 대표 모델 | **V7 Pair-Neighbor Quantile Blend** |
+| Train-only Audit3 MAE | **0.146644** |
+| Public MAE | **0.1272333333** |
+| 제출 시점 | 2026-08-01 14:43 KST |
+| 당시 Public leaderboard | 1위 |
 
-- 평가 지표: MAE (낮을수록 좋음)
-- 저장소 대표 모델: **V7 Pair-Neighbor Quantile Blend**
-- Train-only 신규 Audit3 MAE: **0.146644**
-- Public MAE: **0.1272333333**
-- 당시 기록: **2026-08-01 14:43 KST 제출 시점 공개 리더보드 1위**
+V7은 V6 Adaptive Feature-Probability ExtraTrees 예측 85%와 Pair-Neighbor 예측 15%를 결합합니다. 혼합 비율과 하이퍼파라미터는 Train-only 검증으로 정했고, 최종 예측은 0.01 단위로 반올림합니다.
 
-> 이 README는 `stress_project_JH`에 보존된 **연구 계보와 검증 기록**을 설명합니다.  
-> 여기의 대표 모델 표기는 개인별 성과 순위나 팀 전체 최종 채택 모델을 의미하지 않으며, 팀의 최종 통합 결과와 공통 계보는 별도 팀 문서에서 함께 정리합니다.
-
-V7은 V6 Adaptive Feature-Probability ExtraTrees 예측 85%와 8개 핵심
-피처의 모든 2차원 조합에서 구한 Train 1-NN 분위수 예측 15%를 혼합합니다.
-혼합 비율과 모든 하이퍼파라미터는 Test가 아닌 Train-only 검증으로 고정했고,
-최종 예측은 타깃 격자에 맞춰 0.01 단위로 반올림합니다.
-
-### 모델 구조 한눈에 보기
+## 모델 구조
 
 ```mermaid
 flowchart LR
-    A["Train Data"] --> B["V6 Adaptive Feature-Probability<br/>ExtraTrees"]
-    A --> C["8개 핵심 피처<br/>2차원 Pair 1-NN"]
-    B --> D["85%"]
-    C --> E["15%"]
-    D --> F["V7 Pair-Neighbor<br/>Quantile Blend"]
+    A[Train Data] --> B[V6 ExtraTrees]
+    A --> C[8 features<br/>28 pair spaces · 1-NN]
+    B --> D[85%]
+    C --> E[15%]
+    D --> F[V7 Blend]
     E --> F
-    F --> G["0.01 단위 반올림"]
+    F --> G[Round to 0.01]
 ```
 
----
+Pair-Neighbor는 8개 핵심 피처의 모든 2차원 조합에서 가장 가까운 Train 샘플을 찾고, 여러 이웃 타깃을 분위수 방식으로 결합해 전역 트리 모델이 놓치는 국소 패턴을 보완합니다.
 
-## 🧪 V8 후속 실험 결과
+## V8 후속 실험
 
-V8 Robust Subspace-Neighbor Blend는 가중치 고정 뒤 신규 Audit Seed 3개에서
-V7을 3/3으로 이겼습니다(Audit 평균 0.150044, V7 0.150134). 그러나 Public
-MAE는 **0.1274733333**으로 V7의 0.1272333333보다 **0.0002400000 악화**됐습니다.
-따라서 V8은 후속 미채택 실험으로 보존하고, 이 저장소의 대표 실행 코드는
-V7으로 유지합니다.
+V8 Robust Subspace-Neighbor Blend는 가중치를 고정한 뒤 신규 Audit seed 3개에서 V7을 3/3으로 이겼습니다.
 
-- [V8 상세 검증 보고서](validation/V8_MODEL_REPORT.md)
-- [V8 최종 실행 코드](model_history/v8/final_submission_v8.py)
+| 모델 | Audit 평균 MAE | Public MAE |
+|---|---:|---:|
+| V7 | `0.150134` | **`0.1272333333`** |
+| V8 | `0.150044` | `0.1274733333` |
 
----
+내부 Audit에서는 개선됐지만 Public MAE가 `0.00024` 악화되어 V8은 대표 모델로 승격하지 않았습니다.
 
-## 📚 모델 및 검증 기록
+- [`validation/V8_MODEL_REPORT.md`](validation/V8_MODEL_REPORT.md)
+- [`model_history/v8/final_submission_v8.py`](model_history/v8/final_submission_v8.py)
 
-- [V1~V8 전체 모델 이력](model_history/README.md)
-- [V7 상세 검증 보고서](validation/V7_MODEL_REPORT.md)
-- [V7 데이터 품질 보고서](validation/V7_DATA_QUALITY_REPORT.md)
-- [실행 완료 분석 노트북](validation/V7_TRAIN_ONLY_ANALYSIS.ipynb)
-- [검증 프로토콜](validation/VALIDATION_PROTOCOL.md)
+## 실행
 
-각 버전은 `model_history/v1`부터 `model_history/v7`까지 같은 순서로 정리되어
-있습니다. V5는 승격 기준을 통과하지 못해 최종 제출 코드를 만들지 않았으며,
-폐기 이유와 실험 코드를 기록으로 남겼습니다.
-
----
-
-## 🚀 실행 방법
-
-데이터 파일을 `/data`에 배치합니다.
+데이터 파일을 한 디렉터리에 준비합니다.
 
 ```text
 /data/
@@ -84,28 +66,29 @@ V7으로 유지합니다.
   sample_submission.csv
 ```
 
-환경을 설치하고 이 저장소의 대표 모델 학습·추론 코드를 실행합니다.
-
 ```bash
 pip install -r requirements.txt
 python final_submission.py --data-dir /data --output-dir .
 ```
 
-실행이 끝나면 `submit_v7_pair_neighbor_blend.csv`가 생성됩니다. 제출용 단일
-파일 원본은 `model_history/v7/final_submission_v7.py`에도 동일하게 보존합니다.
+실행 후 `submit_v7_pair_neighbor_blend.csv`가 생성됩니다. 동일한 제출 코드는 [`model_history/v7/final_submission_v7.py`](model_history/v7/final_submission_v7.py)에도 보존되어 있습니다.
 
----
+## 검증 자료
 
-## 🛡️ 누수 방지 원칙
+- [`model_history/README.md`](model_history/README.md) — V1~V8 모델 이력
+- [`validation/V7_MODEL_REPORT.md`](validation/V7_MODEL_REPORT.md) — V7 검증 결과
+- [`validation/V7_DATA_QUALITY_REPORT.md`](validation/V7_DATA_QUALITY_REPORT.md) — 데이터 품질 확인
+- [`validation/V7_TRAIN_ONLY_ANALYSIS.ipynb`](validation/V7_TRAIN_ONLY_ANALYSIS.ipynb) — Train-only 분석
+- [`validation/VALIDATION_PROTOCOL.md`](validation/VALIDATION_PROTOCOL.md) — 검증 방식
 
-- Test 데이터로 인코더·결측 대체값·스케일러를 학습하지 않습니다.
-- 전처리기와 경험적 순위 기준은 Train 데이터에서만 학습합니다.
-- 파생변수는 한 행 안의 입력값만 사용합니다.
-- Test 전체 통계, 행 수, 인덱스 또는 순서를 모델링에 사용하지 않습니다.
-- 외부 데이터를 사용하지 않습니다.
+전처리, 결측 대체, rank 기준과 인코딩은 Train에서 학습하며 외부 데이터는 사용하지 않습니다.
 
----
+## Related Repositories
 
-## 🔒 저장소 보안
+| Repository | 내용 |
+|---|---|
+| [`stress_project_UNIFIED`](https://github.com/thisisstress/stress_project_UNIFIED) | 팀 최종 결과와 전체 모델 계보 |
+| [`stress_project_BS`](https://github.com/thisisstress/stress_project_BS) | V7 이후 발전한 최종 BS 8/6 모델 |
+| `stress_project_SK` | 대안 모델과 후속 R&D 기록 |
 
-대회 데이터, 제출 CSV와 학습 모델 파일은 대회 규정 및 보안을 위해 Git에서 제외합니다.
+팀 최종 채택 모델은 V7이 아니라 BS 8/6입니다. 최종 결과는 `stress_project_UNIFIED`에서 확인할 수 있습니다.
