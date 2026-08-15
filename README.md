@@ -92,3 +92,9 @@ python final_submission.py --data-dir /data --output-dir .
 | `stress_project_SK` | 대안 모델과 후속 R&D 기록 |
 
 팀 최종 채택 모델은 V7이 아니라 BS 8/6입니다. 최종 결과는 `stress_project_UNIFIED`에서 확인할 수 있습니다.
+
+대회 원본 `train.csv`·`test.csv`와 정답 레이블은 저장소에 포함하지 않습니다.
+
+## License and attribution
+
+팀이 작성한 소스 코드와 문서는 [MIT License](LICENSE)로 공개합니다. 공동 저자와 역할은 [AUTHORS.md](AUTHORS.md), 데이터·제3자 자료의 제외 범위는 [LICENSE_SCOPE.md](LICENSE_SCOPE.md)에서 확인할 수 있습니다.
