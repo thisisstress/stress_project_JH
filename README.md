@@ -10,7 +10,7 @@
   <img src="https://img.shields.io/badge/Public-0.1272333333-059669?style=flat-square" alt="Public MAE">
 </p>
 
-이 저장소는 V1~V8 모델 이력과 V7 Pair-Neighbor 모델의 재현 코드·검증 기록을 보존합니다.
+**Scope:** V1~V8 계보 · V7 Pair-Neighbor 재현 코드 · Train-only 검증
 
 </div>
 
@@ -24,7 +24,9 @@
 | 제출 시점 | 2026-08-01 14:43 KST |
 | 당시 Public leaderboard | 1위 |
 
-V7은 V6 Adaptive Feature-Probability ExtraTrees 예측 85%와 Pair-Neighbor 예측 15%를 결합합니다. 혼합 비율과 하이퍼파라미터는 Train-only 검증으로 정했고, 최종 예측은 0.01 단위로 반올림합니다.
+**구성:** V6 Adaptive Feature-Probability ExtraTrees `85%` + Pair-Neighbor `15%`  
+**선정 기준:** Train-only validation  
+**출력:** 0.01 반올림
 
 ## 모델 구조
 
@@ -39,25 +41,30 @@ flowchart LR
     F --> G[Round to 0.01]
 ```
 
-Pair-Neighbor는 8개 핵심 피처의 모든 2차원 조합에서 가장 가까운 Train 샘플을 찾고, 여러 이웃 타깃을 분위수 방식으로 결합해 전역 트리 모델이 놓치는 국소 패턴을 보완합니다.
+### Pair-Neighbor
+
+- 핵심 피처 8개
+- 모든 2차원 조합 → 28개 pair space
+- Train 기준 경험적 rank
+- Manhattan 1-NN
+- 이웃 target 분위수 집계
+- 전역 ExtraTrees의 국소 보완
 
 ## V8 후속 실험
-
-V8 Robust Subspace-Neighbor Blend는 가중치를 고정한 뒤 신규 Audit seed 3개에서 V7을 3/3으로 이겼습니다.
 
 | 모델 | Audit 평균 MAE | Public MAE |
 |---|---:|---:|
 | V7 | `0.150134` | **`0.1272333333`** |
 | V8 | `0.150044` | `0.1274733333` |
 
-내부 Audit에서는 개선됐지만 Public MAE가 `0.00024` 악화되어 V8은 대표 모델로 승격하지 않았습니다.
+**Audit:** 신규 seed 3/3 V8 우세  
+**Public:** V8 `+0.00024` 악화  
+**판정:** 미승격
 
 - [`validation/V8_MODEL_REPORT.md`](validation/V8_MODEL_REPORT.md)
 - [`model_history/v8/final_submission_v8.py`](model_history/v8/final_submission_v8.py)
 
 ## 실행
-
-데이터 파일을 한 디렉터리에 준비합니다.
 
 ```text
 /data/
@@ -71,29 +78,31 @@ pip install -r requirements.txt
 python final_submission.py --data-dir /data --output-dir .
 ```
 
-실행 후 `submit_v7_pair_neighbor_blend.csv`가 생성됩니다. 동일한 제출 코드는 [`model_history/v7/final_submission_v7.py`](model_history/v7/final_submission_v7.py)에도 보존되어 있습니다.
+**Output:** `submit_v7_pair_neighbor_blend.csv`  
+**Versioned copy:** [`model_history/v7/final_submission_v7.py`](model_history/v7/final_submission_v7.py)
 
 ## 검증 자료
 
-- [`model_history/README.md`](model_history/README.md) — V1~V8 모델 이력
-- [`validation/V7_MODEL_REPORT.md`](validation/V7_MODEL_REPORT.md) — V7 검증 결과
-- [`validation/V7_DATA_QUALITY_REPORT.md`](validation/V7_DATA_QUALITY_REPORT.md) — 데이터 품질 확인
+- [`model_history/README.md`](model_history/README.md) — V1~V8 계보
+- [`validation/V7_MODEL_REPORT.md`](validation/V7_MODEL_REPORT.md) — V7 검증
+- [`validation/V7_DATA_QUALITY_REPORT.md`](validation/V7_DATA_QUALITY_REPORT.md) — 데이터 품질
 - [`validation/V7_TRAIN_ONLY_ANALYSIS.ipynb`](validation/V7_TRAIN_ONLY_ANALYSIS.ipynb) — Train-only 분석
-- [`validation/VALIDATION_PROTOCOL.md`](validation/VALIDATION_PROTOCOL.md) — 검증 방식
+- [`validation/VALIDATION_PROTOCOL.md`](validation/VALIDATION_PROTOCOL.md) — 검증 계약
 
-전처리, 결측 대체, rank 기준과 인코딩은 Train에서 학습하며 외부 데이터는 사용하지 않습니다.
+**Validation boundary:** 전처리 · 결측 대체 · rank 기준 · 인코딩은 Train-only. 외부 데이터 미사용.
 
 ## Related Repositories
 
-| Repository | 내용 |
+| Repository | 범위 |
 |---|---|
-| [`stress_project_UNIFIED`](https://github.com/thisisstress/stress_project_UNIFIED) | 팀 최종 결과와 전체 모델 계보 |
-| [`stress_project_BS`](https://github.com/thisisstress/stress_project_BS) | V7 이후 발전한 최종 BS 8/6 모델 |
-| `stress_project_SK` | 대안 모델과 후속 R&D 기록 |
+| [`stress_project_UNIFIED`](https://github.com/thisisstress/stress_project_UNIFIED) | 팀 최종 결과 · 전체 계보 |
+| [`stress_project_BS`](https://github.com/thisisstress/stress_project_BS) | 최종 BS 8/6 모델 |
+| `stress_project_SK` | 대안 모델 · 후속 R&D |
 
-팀 최종 채택 모델은 V7이 아니라 BS 8/6입니다. 최종 결과는 `stress_project_UNIFIED`에서 확인할 수 있습니다.
+**Team final:** BS 8/6  
+**V7 status:** Historical team-lineage milestone
 
-대회 원본 `train.csv`·`test.csv`와 정답 레이블은 저장소에 포함하지 않습니다.
+**Data boundary:** 원본 `train.csv` · `test.csv` · 정답 레이블 미포함.
 
 ## License and attribution
 
