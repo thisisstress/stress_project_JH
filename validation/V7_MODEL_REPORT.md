@@ -7,8 +7,9 @@ V6의 국소 Tree 분위수 예측 85%와 새로 만든 2차원 피처쌍 최근
 15%를 혼합합니다.
 
 - Public MAE: **0.1272333333**
-- 리더보드: **2026-08-01 14:43 KST 기준 1위**
-- 현재 상태: **JH 모델 중 최고·저장소 최종 채택**
+- 제출 시각: **2026-08-01 14:43 KST**
+- 역사적 상태: **당시 JH workspace 최종 모델 · 팀 계보 이정표**
+- 현재 팀 final: **BS 8/6 — Public MAE 0.1266866667**
 
 | 검증 구간 | V6 MAE | V7 MAE | V6 대비 | Seed 승률 |
 |---|---:|---:|---:|---:|
@@ -93,9 +94,10 @@ round(0.85 × V6_tree_quantile + 0.15 × pair_neighbor_quantile, 2)
 - 방법론: 동일 Fold의 paired comparison과 완전히 새로운 Audit3 Seed를 사용했습니다.
 - 계산 검산: Audit3 3개 Seed 모두 V7이 V6보다 낮은 MAE를 기록했습니다.
 - 남은 불확실성: Audit3 95% CI 상한이 `+0.000044`로 0을 아주 조금 포함합니다.
-- 제출 결과: Public MAE 0.1272333333, 2026-08-01 14:43 KST 기준 1위입니다.
-- 결론: 현재 최종 모델로 채택하되, Public 1회 결과가 검증 불확실성을 없애는
-  것은 아니므로 이후 변경도 같은 Train-only 검증 프로토콜을 따릅니다.
+- 제출 결과: Public MAE 0.1272333333, 제출 시각 2026-08-01 14:43 KST입니다.
+- 결론: V7은 JH workspace의 검증된 역사적 이정표로 동결합니다. Public 1회 결과가
+  검증 불확실성을 없애는 것은 아니며, 전체 팀 최종 모델은 이후 BS 8/6으로 확정됐습니다.
+- 공식 순위는 별도 보존 근거가 없는 경우 주장하지 않습니다.
 
 ## 산출물
 
@@ -104,3 +106,11 @@ round(0.85 × V6_tree_quantile + 0.15 × pair_neighbor_quantile, 2)
 - 제출 CSV SHA-256:
   `C63DDA7F89A1741366D4DD772AE958846D389C5BC196B6010FA88568BB096618`
 - 분석 노트북: `V7_TRAIN_ONLY_ANALYSIS.ipynb` (전체 셀 실행 완료, 오류 0개)
+
+
+## Team-final context
+
+V7은 전체 팀 final이 아니라 후반 계보의 기준점입니다.  
+V7 Public MAE `0.1272333333` → BS 8/6 `0.1266866667`: ΔMAE `-0.0005467` (약 **0.43% 상대 감소**).
+
+점수 해석 기준: [UNIFIED evaluation notes](https://github.com/thisisstress/stress_project_UNIFIED/blob/main/docs/EVALUATION_NOTES.md)
