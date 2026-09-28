@@ -2,7 +2,7 @@
 
 ## 목적
 
-현재 1위 V14의 설명인 `ExtraTrees 95% + 다중 Seed·상호작용 보조 모델 5%`를
+당시 historical public reference V14의 설명인 `ExtraTrees 95% + 다중 Seed·상호작용 보조 모델 5%`를
 Train-only Development 검증에서 독립적으로 재현할 수 있는지 확인했다.
 모든 후보는 V1과 같은 Stratified Group 5-Fold와 Development Seed
 `42`, `2026`, `3407`을 사용했다. Test 데이터는 읽거나 분석하지 않았다.
