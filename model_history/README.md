@@ -1,6 +1,6 @@
 # V1~V8 모델 버전 기록
 
-**Owner:** JH research workspace  
+**Workspace scope:** JH research branch history  
 **Root submission model:** V7 Pair-Neighbor Quantile Blend  
 **Version contract:** `v1`~`v8`별 README · 제출 버전은 `final_submission_vN.py` 병행
 
@@ -73,7 +73,8 @@
 - 8 features · 28 pair spaces · Train 1-NN · Q52
 - 신규 Audit3 seed 3/3 V6 우세
 - Public **`0.1272333333`**
-- 2026-08-01 14:43 KST 당시 leaderboard 1위
+- 제출 시각: 2026-08-01 14:43 KST
+- 당시 팀 계보의 Public MAE 이정표이며, 전체 팀 최종 모델은 BS 8/6
 - [V7 report](../validation/V7_MODEL_REPORT.md) · [Train-only notebook](../validation/V7_TRAIN_ONLY_ANALYSIS.ipynb)
 
 ### V8 — Robust Subspace Neighbor
@@ -92,3 +93,10 @@
 - 원본 데이터 · 제출 CSV · trained model artifact: Git 미포함
 - Public score: Train-only 설정 freeze 이후 확인값
 - negative results: 미채택/폐기 사유 포함 보존
+
+
+## Current team status
+
+이 문서는 V1~V8 역사 기록을 보존합니다. 전체 팀의 canonical final은 **BS 8/6**이며,
+점수 비교와 퍼센트 해석은 [UNIFIED evaluation notes](https://github.com/thisisstress/stress_project_UNIFIED/blob/main/docs/EVALUATION_NOTES.md)를 따릅니다.
+공식 순위는 별도 보존 근거가 없는 경우 주장하지 않습니다.
