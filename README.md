@@ -22,11 +22,15 @@
 | Train-only Audit3 MAE | **0.146644** |
 | Public MAE | **0.1272333333** |
 | 제출 시점 | 2026-08-01 14:43 KST |
-| 당시 Public leaderboard | 1위 |
+| 계보상 상태 | 2026-08-01 당시 팀 최고 Public MAE 기록 |
 
 **구성:** V6 Adaptive Feature-Probability ExtraTrees `85%` + Pair-Neighbor `15%`  
 **선정 기준:** Train-only validation  
 **출력:** 0.01 반올림
+
+**최종 모델과의 비교:** V7 Public MAE `0.1272333333` → BS 8/6 `0.1266866667`, ΔMAE `-0.0005467` (약 **0.43% 상대 감소**).  
+공식 순위는 별도 보존 근거가 없는 경우 주장하지 않으며, 공개 문서에서는 점수·제출 시각·검증 계약을 우선 기록합니다.  
+→ [Canonical score interpretation](https://github.com/thisisstress/stress_project_UNIFIED/blob/main/docs/EVALUATION_NOTES.md)
 
 ## 모델 구조
 
@@ -97,7 +101,7 @@ python final_submission.py --data-dir /data --output-dir .
 |---|---|
 | [`stress_project_UNIFIED`](https://github.com/thisisstress/stress_project_UNIFIED) | 팀 최종 결과 · 전체 계보 |
 | [`stress_project_BS`](https://github.com/thisisstress/stress_project_BS) | 최종 BS 8/6 모델 |
-| `stress_project_SK` | 대안 모델 · 후속 R&D |
+| `stress_project_SK` *(private)* | 대안 모델 · 후속 내부 R&D |
 
 **Team final:** BS 8/6  
 **V7 status:** Historical team-lineage milestone
