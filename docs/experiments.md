@@ -27,7 +27,7 @@
 - 8개 핵심 피처의 28개 2차원 조합별 Train 1-NN 분위수: 15%
 - 최종 예측을 0.01 단위로 반올림
 - 신규 Audit3 Seed 3/3에서 V6보다 낮은 MAE
-- Public MAE 0.1272333333, 2026-08-01 14:43 KST 기준 1위
+- Public MAE 0.1272333333, 제출 시각 2026-08-01 14:43 KST
 
 ## 선택 및 누수 방지 원칙
 
@@ -45,3 +45,6 @@
 - [V7 모델 보고서](../validation/V7_MODEL_REPORT.md)
 - [V7 데이터 품질 보고서](../validation/V7_DATA_QUALITY_REPORT.md)
 - [V7 실행 완료 분석 노트북](../validation/V7_TRAIN_ONLY_ANALYSIS.ipynb)
+
+
+> Historical note: 공식 순위는 별도 보존 근거가 없는 경우 주장하지 않습니다. 전체 팀 final은 BS 8/6이며, 점수 해석은 UNIFIED의 EVALUATION_NOTES.md를 따릅니다.
